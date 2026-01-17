@@ -6,21 +6,21 @@
   const DEFAULT_TOP_GAP = 24; // px
 
   function initTOC() {
-    const wrapper = document.querySelector('[data-toc="wrapper"]');
+    const wrapper = document.querySelector('[data-pw-toc="wrapper"]');
     if (!wrapper) return;
 
-    const debug = wrapper.hasAttribute("data-toc-debug");
+    const debug = wrapper.hasAttribute("data-pw-toc-debug");
     const log = createLogger(debug);
 
     log("TOC initialized");
 
-    const content = wrapper.querySelector('[data-toc="content"]');
-    const list = wrapper.querySelector('[data-toc="list"]');
-    const itemTemplate = wrapper.querySelector('[data-toc="item"]');
+    const content = wrapper.querySelector('[data-pw-toc="content"]');
+    const list = wrapper.querySelector('[data-pw-toc="list"]');
+    const itemTemplate = wrapper.querySelector('[data-pw-toc="item"]');
 
     if (!content) {
       log(
-        'Missing [data-toc="content"] inside [data-toc="wrapper"]',
+        'Missing [data-pw-toc="content"] inside [data-pw-toc="wrapper"]',
         "error"
       );
       return;
@@ -28,7 +28,7 @@
 
     if (!list) {
       log(
-        'Missing [data-toc="list"] inside [data-toc="wrapper"]',
+        'Missing [data-pw-toc="list"] inside [data-pw-toc="wrapper"]',
         "error"
       );
       return;
@@ -36,22 +36,22 @@
 
     if (!itemTemplate) {
       log(
-        'Missing [data-toc="item"] template inside [data-toc="list"]',
+        'Missing [data-pw-toc="item"] template inside [data-pw-toc="list"]',
         "error"
       );
       return;
     }
 
     const headingSelector =
-      wrapper.getAttribute("data-toc-headings") || "h2,h3";
+      wrapper.getAttribute("data-pw-toc-headings") || "h2,h3";
 
     log(`Using heading selector: ${headingSelector}`);
 
     const activeClass =
-      wrapper.getAttribute("data-toc-active-class") || "is-active";
+      wrapper.getAttribute("data-pw-toc-active-class") || "is-active";
 
     const stickyNavSelector =
-      wrapper.getAttribute("data-toc-sticky-nav");
+      wrapper.getAttribute("data-pw-toc-sticky-nav");
 
     if (stickyNavSelector) {
       log(`Sticky nav selector: ${stickyNavSelector}`);
@@ -78,7 +78,7 @@
       }
 
       const item = itemTemplate.cloneNode(true);
-      const textEl = item.querySelector('[data-toc="text"]');
+      const textEl = item.querySelector('[data-pw-toc="text"]');
 
       item.removeAttribute("style");
       item.setAttribute("href", "#");
@@ -87,7 +87,7 @@
         textEl.textContent = heading.innerText;
       } else {
         log(
-          'Missing [data-toc="text"] inside [data-toc="item"]',
+          'Missing [data-pw-toc="text"] inside [data-pw-toc="item"]',
           "warn"
         );
       }
